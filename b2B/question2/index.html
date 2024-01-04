@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer App</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+      #timer {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      #startButton {
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="timer">00:00</div>
+    <button id="startButton">Start Timer</button>
+
+    <script>
+      $(document).ready(function () {
+        let timerInterval;
+        let seconds = 0;
+        let minutes = 0;
+
+        function updateTimerDisplay() {
+          const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+          const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+          $("#timer").text(`${formattedMinutes}:${formattedSeconds}`);
+        }
+
+        $("#startButton").on("click", function () {
+          if (!timerInterval) {
+            timerInterval = setInterval(function () {
+              seconds++;
+              if (seconds === 60) {
+                seconds = 0;
+                minutes++;
+              }
+              updateTimerDisplay();
+            }, 1000);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
